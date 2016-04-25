@@ -6,8 +6,8 @@ from django.core.urlresolvers import reverse
 # Create your models here.
 
 class PublishedManager(models.Manager):
-  def get_gueryset(self):
-    return super(PublishedManager, self).get_quesryset().filter(status='published')
+  def get_queryset(self):
+    return super(PublishedManager, self).get_queryset().filter(status='published')
       
 
 class Post(models.Model):
