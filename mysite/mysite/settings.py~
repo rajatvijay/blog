@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'blog',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -100,3 +101,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Configuration to send e-mails using Gmail Client
+# Enable access here first to less secure app on your gmail account
+# https://www.google.com/settings/security/lesssecureapps
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'rajatvijay5@gmail.com'
+EMAIL_HOST_PASSWORD = 'sidneysheldon5'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
