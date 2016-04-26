@@ -1,10 +1,11 @@
+{% load blog_tags %}
 {% load staticfiles %}
 
 <!DOCTYPE html>
 <html>
   <head>
     <title>{% block title %}{% endblock %}</title>
-    <link href="{% static css/blog.css %}" type="text/css" rel="stylesheet" />
+    <link href="{% static 'css/blog.css' %}" type="text/css" rel="stylesheet" />
   </head>
   <body>
     <div id="content">
@@ -12,8 +13,8 @@
     {% endblock %}
     </div>
     <div id="sidebar" >
-    <h2>My Sidebar</h2>
-    <p>This is my blog</p>
+    <h2>My blog</h2>
+    <p>This is my blog. I have written {% total_posts %} so far!</p>
     </div>
   </body>
 </html>
