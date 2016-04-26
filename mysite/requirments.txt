@@ -4,6 +4,7 @@ Django==1.8.6
 django-taggit==0.17.1
 ipython==4.2.0
 ipython-genutils==0.1.0
+Markdown==2.6.2
 pathlib2==2.1.0
 pexpect==4.0.1
 pickleshare==0.7.2
