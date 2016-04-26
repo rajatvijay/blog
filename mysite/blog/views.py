@@ -79,10 +79,11 @@ def post_detail(request, year, month, day, post):
   else:
     comment_form = CommentForm()
     
-  # VIMP TBR CONFUSED
-  post_tags_id = post.tags.values_list('id', flat=True)
-  similar_posts = Post.published.filter(tags__in=post_tags_id).exclude(id=post.id)
-  similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
+  ## VIMP TBR CONFUSED
+  #post_tags_id = post.tags.values_list('id', flat=True)
+  #similar_posts = Post.published.filter(tags__in=post_tags_id).exclude(id=post.id)
+  ## how come it counts only the similar tags not all the tags of the respectibve posts
+  #similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
   
-  return render(request, 'blog/post/detail.html', {'post': post, 'comment_form': comment_form, 'comments': comments, 'new_comment': new_comment, 'similar_posts': similar_posts})
+  return render(request, 'blog/post/detail.html', {'post': post, 'comment_form': comment_form, 'comments': comments, 'new_comment': new_comment})#, 'similar_posts': similar_posts})
   
