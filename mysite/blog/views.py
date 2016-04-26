@@ -8,11 +8,11 @@ from taggit.models import Tag
 
 # Create your views here.
 
-class PostListView(ListView):
-  queryset = Post.published.all()
-  context_object_name = 'posts'
-  paginate_by = 3
-  template_name = 'blog/post/list.html'
+#class PostListView(ListView):
+#  queryset = Post.published.all()
+#  context_object_name = 'posts'
+#  paginate_by = 3
+#  template_name = 'blog/post/list.html'
   
 def post_share(request, post_id):
   post = get_object_or_404(Post, id=post_id, status='published')
@@ -38,30 +38,27 @@ def post_share(request, post_id):
     
   return render(request, 'blog/post/share.html', {'form': form, 'post': post, 'sent': sent, 'cd': cd})
 
-#def post_list(request):
-#  posts_list = Post.published.all()
-#  paginator = Paginator(posts_list, 3)
-#  
-#  # page_number --> gets the number of current page
-#  page_number = request.GET.get('page')
-#  
-#  try:
-#   
-#    # paginator.page() --> the page object having methods to retrieve objects(object_list)
-#    # of page no indicated by page variable   
-#    page = paginator.page(page_number)
-#    
-#  except PageNotAnInteger :
-#    #If page_number is not an integer deliver the first page
-#    page = paginator.page(1)
-#  except EmptyPage:
-#    # If page_number is out of range deliver last page of results
-#    page = paginator.page(paginator.num_pages)
-#    
-#  # rather than passing a posts quesry set we pass a page object
-#  # page object has all the query set objects for the given page number only 
-#  # https://docs.djangoproject.com/en/1.9/topics/pagination/
-#  return render(request, 'blog/post/list.html', {'page': page})
+def post_list(request, tag_slug=None):
+  object_list = Post.published.all()
+  tag = None
+  
+  if tag_slug:
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    object_list = object_list.filter(tags__in=[tag])
+  
+  paginator = Paginator(object_list, 3) # 3 posts in each page
+  page = request.GET.get('page')
+  
+  try:
+    posts = paginator.page(page)
+  except PageNotAnInteger:
+    # If page is not an integer deliver the first page
+    posts = paginator.page(1)
+  except EmptyPage:
+    # If page is out of range deliver last page of results
+    posts = paginator.page(paginator.num_pages)
+    
+  return render(request, 'blog/post/list.html', {'page': page, 'posts': posts, 'tag': tag})
   
   
 def post_detail(request, year, month, day, post):
