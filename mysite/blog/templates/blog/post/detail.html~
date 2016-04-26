@@ -22,13 +22,22 @@
     </h2>
   {% endwith %}
   
+  <h2>Similar posts</h2>
+  {% for post in similar_posts %}
+    <p>
+      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </p>
+  {% empty %}
+    There are no similar posts yet.
+  {% endfor %}
+  
   {% for comment in comments %}
     <div class="comment">
       <p class="info">
         Comment {{ forloop.counter }} by {{ comment.name }}
         {{ comment.created }}
       </p>
-      {{ comment.body | linbreaks }}
+      {{ comment.body | linebreaks }}
       
       <!-- We display a default message if the comments list is empty,
       telling our users there are no comments for this post yet.  -->
